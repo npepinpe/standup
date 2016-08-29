@@ -12,8 +12,8 @@ defmodule Standup do
       supervisor(Standup.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Standup.Endpoint, []),
-      # Start your own worker by calling: Standup.Worker.start_link(arg1, arg2, arg3)
-      # worker(Standup.Worker, [arg1, arg2, arg3]),
+      # Start redis connection pool
+      supervisor(Standup.Redis, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

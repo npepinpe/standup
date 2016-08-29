@@ -13,14 +13,24 @@ defmodule Standup.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Standup do
-    pipe_through :browser # Use the default browser stack
-
-    get "/", PageController, :index
+  pipeline :authenticate do
+    plug Standup.Plugs.Authenticate
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Standup do
-  #   pipe_through :api
-  # end
+  scope "/", Standup do
+    pipe_through [:browser, :authenticate]
+    resources "/standups", StandupController, only: [:index, :show, :update]
+  end
+
+  scope "/", Standup do
+    pipe_through :browser
+
+    scope "/auth" do
+      get "/login", SessionController, :new
+      post "/login", SessionController, :create
+      get "/logout", SessionController, :delete
+    end
+
+    resources "/users", UserController, only: [:new, :create]
+  end
 end
