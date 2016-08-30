@@ -7,10 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><%= title %></title>
+    <title><%= assigns[:title] || title %></title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-    
-    <%=for sheet <- stylesheets do %>
+
+    <%=for sheet <- stylesheets ++ (assigns[:stylesheets] || []) do %>
       <link rel="stylesheet" href="<%= static_path(@conn, "/css/" <> sheet <> ".css") %>">
     <% end %>
   </head>
@@ -23,7 +23,7 @@
       </main>
     </div>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-    <%= for script <- javascripts do %>
+    <%= for script <- javascripts ++ (assigns[:javascripts] || []) do %>
       <script src="<%= static_path(@conn, "/js/" <> script <> ".js") %>">
     <% end %>
   </body>

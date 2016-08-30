@@ -19,6 +19,7 @@ defmodule Standup.Router do
 
   scope "/", Standup do
     pipe_through [:browser, :authenticate]
+    get "/", StandupController, :index
     resources "/standups", StandupController, only: [:index, :show, :update]
   end
 

@@ -13,10 +13,16 @@ defmodule Standup.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:email, :password])
-    |> validate_required([:email, :password])
-    |> unique_constraint(:email)
-    |> hash_password
+      |> cast(params, [:email, :password])
+      |> validate_required([:email, :password])
+      |> hash_password
+  end
+
+  def create_changeset(struct, params \\ %{}) do
+    changeset(struct, params)
+      |> unique_constraint(:email)
+      |> validate_format(:email, ~r/@/)
+      |> validate_length(:password, min: 6)
   end
 
   defp hash_password(changeset) do

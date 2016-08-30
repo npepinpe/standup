@@ -1,13 +1,9 @@
-<div class="container">
-  <form class="form-signin">
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <label for="email" class="sr-only">Email address</label>
-    <input type="email" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
-    <label for="password" class="sr-only">Password</label>
-    <input type="password" name="password" class="form-control" placeholder="Password" required="">
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <span>
-      <a href="<%= user_path(@conn, :new) %>" title="Register">Register</a>
-    </span>
-  </form>
-</div>
+<%= form_for(@conn, session_path(@conn, :create), [as: :session, class: "form-signin"], fn f -> %>
+  <h2 class="form-signin-heading">Please sign in</h2>
+  <%= label(f, :email, "Email address", [class: "sr-only"]) %>
+  <%= text_input(f, :email, type: "email", class: "form-control", placeholder: "Email address", required: "", autofocus: "") %>
+  <%= label(f, :password, "Password", class: "sr-only") %>
+  <%= text_input(f, :password, type: "password", class: "form-control", placeholder: "Password", required: "") %>
+  <%= submit("Sign in", class: "btn btn-lg btn-primary btn-block") %>
+  <span><%= link("Register", to: user_path(@conn, :new)) %></span>
+<% end) %>

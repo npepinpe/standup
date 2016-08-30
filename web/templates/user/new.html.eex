@@ -1,0 +1,8 @@
+<%= form_for(@changeset, user_path(@conn, :create), [class: "form-signin"], fn f -> %>
+  <h2 class="form-signin-heading">Registration</h2>
+  <%= label(f, :email, "Email address", [class: "sr-only"]) %>
+  <%= text_input(f, :email, type: "email", class: "form-control", placeholder: "Email address", required: "", autofocus: "") %>
+  <%= label(f, :password, "Password", class: "sr-only") %>
+  <%= text_input(f, :password, type: "password", class: "form-control", placeholder: "Password", required: "") %>
+  <%= submit("Register", class: "btn btn-lg btn-primary btn-block") %>
+<% end) %>
