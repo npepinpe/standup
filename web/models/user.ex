@@ -6,6 +6,9 @@ defmodule Standup.User do
     field :password, :string
 
     timestamps()
+
+    field :password_plain, :string, virtual: true
+    field :password_plain_confirmation, :string, virtual: true
   end
 
   @doc """
@@ -13,8 +16,8 @@ defmodule Standup.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-      |> cast(params, [:email, :password])
-      |> validate_required([:email, :password])
+      |> cast(params, [:email, :password_plain, :password_plain_confirmation])
+      |> validate_required([:email, :password_plain])
       |> hash_password
   end
 
@@ -22,11 +25,12 @@ defmodule Standup.User do
     changeset(struct, params)
       |> unique_constraint(:email)
       |> validate_format(:email, ~r/@/)
-      |> validate_length(:password, min: 6)
+      |> validate_length(:password_plain, min: 6)
+      |> validate_confirmation(:password_plain, required: true, message: "does not match password")
   end
 
   defp hash_password(changeset) do
-    if password = get_change(changeset, :password) do
+    if password = get_change(changeset, :password_plain) do
       hashed = :crypto.hash(:sha256, password) |> Base.encode16
       changeset |> put_change(:password, hashed)
     else

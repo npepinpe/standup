@@ -27,4 +27,9 @@ defmodule Standup.Plugs.Authenticate do
   def set_current_user(conn, user) do
     put_session(conn, :current_user, user)
   end
+
+  def delete(conn) do
+    delete_session(conn, :current_user)
+    delete_session(conn, @redirect_path_key)
+  end
 end

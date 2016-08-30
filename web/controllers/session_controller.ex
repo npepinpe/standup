@@ -26,6 +26,9 @@ defmodule Standup.SessionController do
       end
   end
 
-  def delete(_conn, _params) do
+  def delete(conn, _params) do
+    conn |>
+      Authenticate.delete
+      Authenticate.redirect
   end
 end

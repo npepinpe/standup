@@ -1,8 +1,23 @@
 <%= form_for(@changeset, user_path(@conn, :create), [class: "form-signin"], fn f -> %>
   <h2 class="form-signin-heading">Registration</h2>
-  <%= label(f, :email, "Email address", [class: "sr-only"]) %>
-  <%= text_input(f, :email, type: "email", class: "form-control", placeholder: "Email address", required: "", autofocus: "") %>
-  <%= label(f, :password, "Password", class: "sr-only") %>
-  <%= text_input(f, :password, type: "password", class: "form-control", placeholder: "Password", required: "") %>
+
+  <div class="form-group">
+    <%= label(f, :email, "Email address", class: "control-label") %>
+    <%= text_input(f, :email, type: "email", class: "form-control", placeholder: "Email address", required: "", autofocus: "") %>
+    <%= error_tag f, :email %>
+  </div>
+
+   <div class="form-group">
+    <%= label(f, :password_plain, "Password", class: "control-label") %>
+    <%= password_input(f, :password_plain, class: "form-control", placeholder: "Password", required: "") %>
+    <%= error_tag f, :password_plain%>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :password_confirmation, "Password confirmation", class: "control-label" %>
+    <%= password_input f, :password_confirmation, class: "form-control", placeholder: "Password confirmation", required: "" %>
+    <%= error_tag f, :password_confirmation %>
+  </div>
+
   <%= submit("Register", class: "btn btn-lg btn-primary btn-block") %>
 <% end) %>
