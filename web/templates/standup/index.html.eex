@@ -1,1 +1,1 @@
-<p>Nothing</p>
+<h1>Welcome back! <span class="small"><%= @current_user.email %></span></h1>
