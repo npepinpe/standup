@@ -3,6 +3,7 @@ defmodule Standup.StandupController do
 
   def index(conn, _params) do
     conn
-      |> send_resp(200, "")
+      |> assign(:header, true)
+      |> render("index.html")
   end
 end

@@ -1,3 +1,4 @@
+require Logger
 defmodule Standup.UserController do
   use Standup.Web, :controller
   alias Standup.User
